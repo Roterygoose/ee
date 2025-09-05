@@ -306,13 +306,22 @@ run_service.RenderStepped:Connect(function()
                 local len = math_min(w, h) * 0.25
 
                 if esplib.box.type == "normal" then
-                    box.outline.Position = min
-                    box.outline.Size = max - min
+                    local topLeft = vector2_new(min.X, min.Y)
+                    local topRight = vector2_new(max.X, min.Y)
+                    local bottomLeft = vector2_new(min.X, max.Y)
+                    local bottomRight = vector2_new(max.X, max.Y)
+
+                    box.outline.PointA = topLeft
+                    box.outline.PointB = topRight
+                    box.outline.PointC = bottomRight
+                    box.outline.PointD = bottomLeft
                     box.outline.Color = esplib.box.outline
                     box.outline.Visible = true
 
-                    box.fill.Position = min
-                    box.fill.Size = max - min
+                    box.fill.PointA = topLeft
+                    box.fill.PointB = topRight
+                    box.fill.PointC = bottomRight
+                    box.fill.PointD = bottomLeft
                     box.fill.Color = esplib.box.fill
                     box.fill.Visible = true
 
