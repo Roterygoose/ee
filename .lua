@@ -120,7 +120,7 @@ function espfunctions.add_healthbar(instance)
     if not instance or espinstances[instance] and espinstances[instance].healthbar then return end
     
     local outline = Drawing.new("Quad")
-    outline.Thickness = 1
+    outline.Thickness = 2
     outline.Filled = false
     outline.Transparency = 1
 
@@ -250,33 +250,27 @@ run_service.RenderStepped:Connect(function()
 
         -- Get position on screen
         local position, visible = camera:WorldToViewportPoint(humanoidRootPart.Position)
-        if not visible then
-            if data.box then
-                data.box.outline.Visible = false
-                data.box.fill.Visible = false
-                for _, line in ipairs(data.box.corner_fill) do
-                    line.Visible = false
+            if not visible then
+                if data.box then
+                    data.box.outline.Visible = false
+                    data.box.fill.Visible = false
                 end
-                for _, line in ipairs(data.box.corner_outline) do
-                    line.Visible = false
+                if data.healthbar then
+                    data.healthbar.outline.Visible = false
+                    data.healthbar.fill.Visible = false
                 end
+                if data.name then
+                    data.name.Visible = false
+                end
+                if data.distance then
+                    data.distance.Visible = false
+                end
+                if data.tracer then
+                    data.tracer.outline.Visible = false
+                    data.tracer.fill.Visible = false
+                end
+                continue
             end
-            if data.healthbar then
-                data.healthbar.outline.Visible = false
-                data.healthbar.fill.Visible = false
-            end
-            if data.name then
-                data.name.Visible = false
-            end
-            if data.distance then
-                data.distance.Visible = false
-            end
-            if data.tracer then
-                data.tracer.outline.Visible = false
-                data.tracer.fill.Visible = false
-            end
-            continue
-        end
 
         -- Calculate box dimensions (static size like normal ESP script)
         local size = vector2_new(2000 / position.Z, 3000 / position.Z)
@@ -338,8 +332,8 @@ run_service.RenderStepped:Connect(function()
                     for i = 1, 8 do
                         local from, to = corners[i][1], corners[i][2]
                         local dir = (to - from).Unit
-                        local oFrom = from - dir
-                        local oTo = to + dir
+                        local oFrom = from - dir * 1
+                        local oTo = to + dir * 1
 
                         local o = outline_lines[i]
                         o.From = oFrom
@@ -372,7 +366,7 @@ run_service.RenderStepped:Connect(function()
         if data.healthbar then
             if esplib.healthbar.enabled then
                 local healthPercent = humanoid.Health / humanoid.MaxHealth
-                local barWidth = 1
+                local barWidth = 4
                 local barHeight = size.Y
                 local barX = topLeft.X - barWidth - 6
                 local barY = topLeft.Y
