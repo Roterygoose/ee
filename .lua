@@ -338,8 +338,8 @@ run_service.RenderStepped:Connect(function()
                     for i = 1, 8 do
                         local from, to = corners[i][1], corners[i][2]
                         local dir = (to - from).Unit
-                        local oFrom = from - dir
-                        local oTo = to + dir
+                        local oFrom = from - dir * 1
+                        local oTo = to + dir * 1
 
                         local o = outline_lines[i]
                         o.From = oFrom
