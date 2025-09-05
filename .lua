@@ -372,7 +372,7 @@ run_service.RenderStepped:Connect(function()
         if data.healthbar then
             if esplib.healthbar.enabled then
                 local healthPercent = humanoid.Health / humanoid.MaxHealth
-                local barWidth = 2
+                local barWidth = 1
                 local barHeight = size.Y
                 local barX = topLeft.X - barWidth - 6
                 local barY = topLeft.Y
