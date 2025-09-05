@@ -120,7 +120,7 @@ function espfunctions.add_healthbar(instance)
     if not instance or espinstances[instance] and espinstances[instance].healthbar then return end
     
     local outline = Drawing.new("Quad")
-    outline.Thickness = 2
+    outline.Thickness = 1
     outline.Filled = false
     outline.Transparency = 1
 
@@ -338,8 +338,8 @@ run_service.RenderStepped:Connect(function()
                     for i = 1, 8 do
                         local from, to = corners[i][1], corners[i][2]
                         local dir = (to - from).Unit
-                        local oFrom = from - dir * 1
-                        local oTo = to + dir * 1
+                        local oFrom = from - dir
+                        local oTo = to + dir
 
                         local o = outline_lines[i]
                         o.From = oFrom
@@ -372,7 +372,7 @@ run_service.RenderStepped:Connect(function()
         if data.healthbar then
             if esplib.healthbar.enabled then
                 local healthPercent = humanoid.Health / humanoid.MaxHealth
-                local barWidth = 4
+                local barWidth = 2
                 local barHeight = size.Y
                 local barX = topLeft.X - barWidth - 6
                 local barY = topLeft.Y
